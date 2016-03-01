@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="WARN">
+  <Appenders>
+    <RollingFile name="RollingFile" fileName="<%= @log_dir %>/druid.log"
+          filePattern="<%= @log_dir %>/druid.%i.log.gz">
+      <PatternLayout>
+        <Pattern>%d{ISO8601} [%p] [%thread] %logger{35} - %msg%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="1 GB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="9"/>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="RollingFile"/>
+    </Root>
+  </Loggers>
+</Configuration>

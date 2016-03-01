@@ -1,0 +1,8 @@
+fixtures:
+  repositories:
+    stdlib: "git://github.com/puppetlabs/puppetlabs-stdlib.git"
+    archive: "git://github.com/puppet-community/puppet-archive.git"
+    apt: "git://github.com/puppetlabs/puppetlabs-apt.git"
+    java: "git://github.com/puppetlabs/puppetlabs-java"
+  symlinks:
+    druid: "#{source_dir}"

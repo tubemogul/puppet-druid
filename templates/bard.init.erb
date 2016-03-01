@@ -1,0 +1,65 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          druid-bard
+# Required-Start:    $network $named $remote_fs $syslog
+# Required-Stop:     $network $named $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: druid bard
+# Description:       Druid bard Node
+### END INIT INFO
+
+BARD_HOME="/opt/imply/dist/bard"
+BARD_CONFIG="<%= scope.lookupvar("druid::bard::config_dir") %>"
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/bin/node
+DAEMON_OPTS="${BARD_HOME}/build/server/www.js -c ${BARD_CONFIG}"
+NAME="druid-bard"
+DESC="druid bard"
+PIDFILE="/var/run/druid/${NAME}.pid"
+LOGFILE="<%= scope.lookupvar("druid::bard::log_dir") %>/${NAME}.out"
+
+mkdir -p `dirname $PIDFILE`
+mkdir -p `dirname $LOGFILE`
+
+. /lib/lsb/init-functions
+
+start_druid_bard_daemon() {
+    start-stop-daemon --start --background --quiet --make-pidfile --pidfile $PIDFILE --startas /bin/sh -- -c "exec $DAEMON $DAEMON_OPTS > $LOGFILE 2>&1"
+}
+
+stop_druid_bard_daemon() {
+        start-stop-daemon --stop --retry TERM/10/KILL/5 --quiet --oknodo --pidfile $PIDFILE
+}
+
+status_druid_bard_daemon() {
+        status_of_proc -p "${PIDFILE}" "${DAEMON}" "${NAME}"
+}
+
+case "$1" in
+    start)
+        log_begin_msg "Starting $DESC"
+        start_druid_bard_daemon
+        log_end_msg $?
+        ;;
+    stop)
+        log_begin_msg "Stopping $DESC"
+        stop_druid_bard_daemon
+        log_end_msg $?
+        ;;
+    status)
+        status_druid_bard_daemon
+        ;;
+    restart|force-reload)
+        log_begin_msg "Restarting $DESC"
+        stop_druid_bard_daemon
+        start_druid_bard_daemon
+        log_end_msg $?
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|status|restart|force-reload}" >&2
+        exit 1
+        ;;
+esac
+

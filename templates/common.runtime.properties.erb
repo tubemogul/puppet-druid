@@ -1,0 +1,24 @@
+<%-
+def flatten_hash(hash)
+  hash.each_with_object({}) do |(k, v), h|
+    if v.is_a? Hash
+      flatten_hash(v).map do |h_k, h_v|
+        h["#{k}.#{h_k}"] = h_v
+      end
+    else
+      h[k] = v
+    end
+  end.sort
+end
+-%>
+#
+# Configuration managed by Puppet
+#
+# Documentation : http://druid.io/docs/latest/configuration/index.html
+#
+
+<%- if scope.lookupvar('druid::common_config').size > 0 -%>
+<%- flatten_hash(scope.lookupvar('druid::common_config')).each do |k,v| -%>
+druid.<%= k %>=<%= v %>
+<%- end -%>
+<%- end -%>
