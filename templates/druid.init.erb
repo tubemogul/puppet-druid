@@ -1,0 +1,87 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          druid-<%= @service %>
+# Required-Start:    $network $named $remote_fs $syslog
+# Required-Stop:     $network $named $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: druid <%= @service %>
+# Description:       Druid <%= @service %> Node
+### END INIT INFO
+
+
+DRUID_HOME="<%= scope.lookupvar("::druid::dist_dir") %>"
+DRUID_CONFIG="<%= scope.lookupvar("::druid::config_dir") %>"
+DRUID_JAVA_OPTS="<%= @java_opts.join(' ') %>"
+
+<%- if scope.lookupvar("::druid::java_classpath_extensions").size > 0 -%>
+DRUID_EXT_REPO="<%= scope.lookupvar("::druid::dist_dir") %>/extensions-repo"
+DRUID_EXT="<%= scope.lookupvar("::druid::java_classpath_extensions").map{ |ext| "${DRUID_EXT_REPO}/#{ext}" }.join(':') %>"
+DRUID_JAVA_CLASSPATH="${DRUID_CONFIG}/<%= @service %>:${DRUID_CONFIG}/_common:${DRUID_EXT}:<%= scope.lookupvar("::druid::java_classpath") %>"
+<%- else -%>
+DRUID_JAVA_CLASSPATH="${DRUID_CONFIG}/<%= @service %>:${DRUID_CONFIG}/_common:<%= scope.lookupvar("::druid::java_classpath") %>"
+<%- end -%>
+
+JAVA_HOME=<%= scope.lookupvar("::druid::java_home") %>
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=$JAVA_HOME/bin/java
+DAEMON_OPTS="${DRUID_JAVA_OPTS} -classpath ${DRUID_JAVA_CLASSPATH} io.druid.cli.Main server <%= @service %>"
+NAME="druid-<%= @service %>"
+DESC="druid <%= @service %>"
+PIDFILE="/var/run/druid/${NAME}.pid"
+LOGFILE="<%= scope.lookupvar("::druid::log_dir") %>/${NAME}.out"
+
+mkdir -p `dirname $PIDFILE`
+mkdir -p `dirname $LOGFILE`
+
+[ -r /etc/default/druid ] && . /etc/default/druid
+
+. /lib/lsb/init-functions
+
+reload_druid_daemon() {
+	start-stop-daemon --stop --quiet --signal HUP --pidfile $PIDFILE 
+}
+
+start_druid_daemon() {
+    start-stop-daemon --start --background --quiet --make-pidfile --pidfile $PIDFILE --startas /bin/sh -- -c "exec $DAEMON $DAEMON_OPTS > $LOGFILE 2>&1"
+}
+
+stop_druid_daemon() {
+	start-stop-daemon --stop --retry TERM/10/KILL/5 --quiet --oknodo --pidfile $PIDFILE
+}
+
+status_druid_daemon() {
+	status_of_proc -p "${PIDFILE}" "${DAEMON}" "${NAME}"
+}
+
+case "$1" in
+    start)
+	log_begin_msg "Starting $DESC"
+	start_druid_daemon
+	log_end_msg $?
+	;;
+    stop)
+	log_begin_msg "Stopping $DESC"
+	stop_druid_daemon
+	log_end_msg $?
+	;;
+    reload)
+    	log_begin_msg "Reloading $DESC"
+        reload_druid_daemon
+    	log_end_msg $?
+    	;;
+    status)
+        status_druid_daemon
+	;;
+    restart|force-reload)
+	log_begin_msg "Restarting $DESC"
+	stop_druid_daemon
+	start_druid_daemon
+	log_end_msg $?
+	;;
+  *)
+	echo "Usage: $0 {start|stop|status|restart|force-reload|reload}" >&2
+	exit 1
+	;;
+esac
+
