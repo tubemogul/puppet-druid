@@ -11,7 +11,7 @@
 #
 
 class druid (
-  $imply_version             = '1.0.0',
+  $imply_version             = '1.1.0',
   $install_method            = 'tarball',
   $install_dir               = '/opt',
   $install_link              = 'imply',
@@ -24,6 +24,7 @@ class druid (
   $user                      = 'druid',
   $group                     = 'druid',
   $enable_service            = true,
+  $notify_service            = true,
   $java_classpath            = '/opt/imply/dist/druid/lib/*',
   $java_classpath_extensions = [],
   $log_dir                   = '/var/log/druid',
