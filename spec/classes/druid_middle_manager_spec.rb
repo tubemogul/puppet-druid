@@ -17,7 +17,7 @@ describe 'druid::middle_manager' do
 
         it { is_expected.to contain_class('druid') }
         it { is_expected.to contain_class('druid::middle_manager') }
-        it { is_expected.to contain_druid__node('middle_manager') }
+        it { is_expected.to contain_druid__node('middleManager') }
       end
     end
   end

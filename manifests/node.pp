@@ -27,21 +27,20 @@ define druid::node (
   )
   validate_array($java_opts)
 
-  case $druid::enable_service {
-    true: {
-      $ensure_service = 'running'
-      $notify_service = Service["druid-${service_name}"]
-    }
-    default: {
-      $ensure_service = 'stopped'
-      $notify_service = undef
-    }
+  $notify_node = $druid::notify_service ? {
+    true  => Service["druid-${service_name}"],
+    false => undef,
+  }
+
+  $ensure_node = $druid::enable_service ? {
+    true  => 'running',
+    false => 'stopped',
   }
 
   file { "${druid::config_dir}/${service_name}/runtime.properties":
     ensure  => file,
     content => $config,
-    notify  => $notify_service,
+    notify  => $notify_node,
   }
 
   file { "/etc/init.d/druid-${service_name}":
@@ -51,7 +50,7 @@ define druid::node (
   }
 
   service { "druid-${service_name}":
-    ensure  => $ensure_service,
+    ensure  => $ensure_node,
     enable  => true,
     require => File[
       "/etc/init.d/druid-${service_name}",

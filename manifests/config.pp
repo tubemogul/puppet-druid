@@ -13,8 +13,9 @@ class druid::config {
     require => Group[$druid::group],
   }
 
-  if $druid::enable_service {
+  if $druid::notify_service {
     File['common.runtime.properties'] ~> Druid::Node <| |>
+    File['log4j2.xml'] ~> Druid::Node <| |>
   }
 
   file { 'common.runtime.properties':

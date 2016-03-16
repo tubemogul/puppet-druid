@@ -24,7 +24,7 @@ class druid::middle_manager (
   validate_hash($config)
   validate_array($java_opts)
 
-  druid::node { 'middle_manager':
+  druid::node { 'middleManager':
     config     => template('druid/service.runtime.properties.erb'),
     initscript => template('druid/druid.init.erb'),
     java_opts  => $java_opts,
