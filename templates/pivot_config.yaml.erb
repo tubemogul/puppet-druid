@@ -1,33 +1,33 @@
 # The port on which the Bard server will listen on. (default: 9095)
-port: <%= scope.lookupvar("druid::bard::port") %>
+port: <%= scope.lookupvar("druid::pivot::port") %>
 
 # A Druid broker node that can serve data (only used if you have Druid based data source)
-brokerHost: <%= scope.lookupvar("druid::bard::broker_host") %>
+brokerHost: <%= scope.lookupvar("druid::pivot::broker_host") %>
 
 # Print logs to stdout, (default: true).
-enableStdoutLog: <%= scope.lookupvar("druid::bard::enable_stdout_log") %>
+enableStdoutLog: <%= scope.lookupvar("druid::pivot::enable_stdout_log") %>
 
 # Enable file logging (default: true)
-enableFileLog: <%= scope.lookupvar("druid::bard::enable_file_log") %>
+enableFileLog: <%= scope.lookupvar("druid::pivot::enable_file_log") %>
 
-# Location for Bard log files, (default: /var/log/bard)
-logDir: <%= scope.lookupvar("druid::bard::log_dir") %>
+# Location for Bard log files, (default: /var/log/pivot)
+logDir: <%= scope.lookupvar("druid::pivot::log_dir") %>
 
 # Max number of worker processes.
 # - If omitted or set to 0, disable node.js clustering.
 # - Set as 'auto' to spawn (number of CPUs - 1) workers.
 # (default: 0)
-maxWorkers: <%= scope.lookupvar("druid::bard::max_workers") %>
+maxWorkers: <%= scope.lookupvar("druid::pivot::max_workers") %>
 
 # If true, use a segment metadata query instead of a GET request to /druid/v2/datasources to
 # determine datasource dimensions and metrics. (default: false)
-useSegmentMetadata: <%= scope.lookupvar("druid::bard::use_segment_metadata") %>
+useSegmentMetadata: <%= scope.lookupvar("druid::pivot::use_segment_metadata") %>
 
 # Background introspection frequency (in ms).
 # Check for new dataSources periodically.
 # - Set to '0' to disable background introspection. (default: 0)
-sourceListRefreshInterval: <%= scope.lookupvar("druid::bard::source_list_refresh_interval") %>
+sourceListRefreshInterval: <%= scope.lookupvar("druid::pivot::source_list_refresh_interval") %>
 
 # Foreground introspection
 # Checks for new dataSources every time Pivot is loaded (default: false)
-sourceListRefreshOnLoad: <%= scope.lookupvar("druid::bard::source_list_refresh_onLoad") %>
+sourceListRefreshOnLoad: <%= scope.lookupvar("druid::pivot::source_list_refresh_onLoad") %>

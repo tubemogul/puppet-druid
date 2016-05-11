@@ -1,10 +1,10 @@
-# == Class druid::bard::install
+# == Class druid::pivot::install
 #
-# This class is called from druid::bard
+# This class is called from druid::pivot
 #
-class druid::bard::install {
+class druid::pivot::install {
 
-  if $druid::bard::install_nodejs {
+  if $druid::pivot::install_nodejs {
     case $::osfamily {
       'Debian': {
         include apt
@@ -25,7 +25,7 @@ class druid::bard::install {
     }
 
     package { 'nodejs':
-      ensure  => $druid::bard::nodejs_version,
+      ensure  => $druid::pivot::nodejs_version,
     }
   }
 

@@ -1,19 +1,19 @@
-# == Class: druid::bard
+# == Class: druid::pivot
 #
-# Deploy and configure Bard
+# Deploy and configure Pivot
 #
 # === Parameters and Usage
 #
 #   See README.md
 #
 
-class druid::bard (
-  $config_dir                   = '/opt/imply/conf/bard',
+class druid::pivot (
+  $config_dir                   = '/opt/imply/conf/pivot',
   $port                         = 9095,
   $broker_host                  = 'localhost:8082',
   $enable_stdout_log            = true,
   $enable_file_log              = true,
-  $log_dir                      = '/var/log/bard',
+  $log_dir                      = '/var/log/pivot',
   $max_workers                  = 0,
   $use_segment_metadata         = false,
   $source_list_refresh_interval = 0,
@@ -42,9 +42,9 @@ class druid::bard (
   )
 
   Class['druid'] ->
-  class { 'druid::bard::install': } ->
-  class { 'druid::bard::config':  } ~>
-  class { 'druid::bard::service': } ->
-  Class['druid::bard']
+  class { 'druid::pivot::install': } ->
+  class { 'druid::pivot::config':  } ~>
+  class { 'druid::pivot::service': } ->
+  Class['druid::pivot']
 
 }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'druid::bard' do
+describe 'druid::pivot' do
   context 'supported operating systems' do
     ['Debian'].each do |osfamily|
       describe "druid class without any parameters on #{osfamily}" do
@@ -18,14 +18,14 @@ describe 'druid::bard' do
 
         it { is_expected.to compile.with_all_deps }
 
-        it { is_expected.to contain_class('druid::bard') }
-        it { is_expected.to contain_class('druid::bard::install').that_comes_before('druid::bard::config') }
-        it { is_expected.to contain_class('druid::bard::config').that_notifies('druid::bard::service') }
-        it { is_expected.to contain_class('druid::bard::service') }
+        it { is_expected.to contain_class('druid::pivot') }
+        it { is_expected.to contain_class('druid::pivot::install').that_comes_before('druid::pivot::config') }
+        it { is_expected.to contain_class('druid::pivot::config').that_notifies('druid::pivot::service') }
+        it { is_expected.to contain_class('druid::pivot::service') }
 
-        it { is_expected.to contain_file('bard_config.yaml') }
-        it { is_expected.to contain_file('/etc/init.d/bard') }
-        it { is_expected.to contain_service('bard') }
+        it { is_expected.to contain_file('pivot_config.yaml') }
+        it { is_expected.to contain_file('/etc/init.d/pivot') }
+        it { is_expected.to contain_service('pivot') }
 
         describe 'with Nodejs with the APT source' do
           let(:params) {{
@@ -51,7 +51,7 @@ describe 'druid::bard' do
         :install_nodejs => true,
       }}
 
-      it { expect { should contain_class('druid::bard::install') }.to raise_error(Puppet::Error, /Solaris not supported to install the specific APT Source for Nodejs/) }
+      it { expect { should contain_class('druid::pivot::install') }.to raise_error(Puppet::Error, /Solaris not supported to install the specific APT Source for Nodejs/) }
     end
   end
 
