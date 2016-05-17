@@ -15,7 +15,7 @@ DRUID_CONFIG="<%= scope.lookupvar("::druid::config_dir") %>"
 DRUID_JAVA_OPTS="<%= @java_opts.join(' ') %>"
 
 <%- if scope.lookupvar("::druid::java_classpath_extensions").size > 0 -%>
-DRUID_EXT_REPO="<%= scope.lookupvar("::druid::dist_dir") %>/extensions-repo"
+DRUID_EXT_REPO="<%= scope.lookupvar("::druid::extensions_dir") %>"
 DRUID_EXT="<%= scope.lookupvar("::druid::java_classpath_extensions").map{ |ext| "${DRUID_EXT_REPO}/#{ext}" }.join(':') %>"
 DRUID_JAVA_CLASSPATH="${DRUID_CONFIG}/<%= @service %>:${DRUID_CONFIG}/_common:${DRUID_EXT}:<%= scope.lookupvar("::druid::java_classpath") %>"
 <%- else -%>

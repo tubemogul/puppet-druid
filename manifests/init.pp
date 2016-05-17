@@ -11,7 +11,7 @@
 #
 
 class druid (
-  $imply_version             = '1.1.0',
+  $imply_version             = '1.2.1',
   $install_method            = 'tarball',
   $install_dir               = '/opt',
   $install_link              = 'imply',
@@ -21,6 +21,7 @@ class druid (
   $java_home                 = '/usr/lib/jvm/java-8-openjdk-amd64',
   $config_dir                = '/opt/imply/conf/druid',
   $dist_dir                  = '/opt/imply/dist/druid',
+  $extensions_dir           = '/opt/imply/dist/druid/extensions',
   $user                      = 'druid',
   $group                     = 'druid',
   $enable_service            = true,
