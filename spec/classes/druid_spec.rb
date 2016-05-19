@@ -22,7 +22,7 @@ describe 'druid' do
 
         it { should contain_user('druid') }
         it { should contain_group('druid') }
-        it { should contain_archive('/usr/src/imply-1.1.0.tar.gz') }
+        it { should contain_archive('/usr/src/imply-1.2.1.tar.gz') }
         it { should contain_file('/opt/imply') }
         it { should contain_file('common.runtime.properties')\
           .with_path('/opt/imply/conf/druid/_common/common.runtime.properties')
