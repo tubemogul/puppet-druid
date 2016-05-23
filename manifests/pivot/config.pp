@@ -10,7 +10,7 @@ class druid::pivot::config {
   }
 
   file { 'pivot_config.yaml':
-    path    => "${druid::pivot::config_dir}/pivot_config.yaml",
+    path    => "${druid::pivot::config_dir}/config.yaml",
     content => template('druid/pivot_config.yaml.erb'),
     mode    => '0644',
     owner   => 'root',
