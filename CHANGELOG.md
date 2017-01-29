@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Fix middleManager node
+- Fix variable contains an uppercase letter puppet-lint warnings which means
+  renaming parameter `druid::pivot::source_list_refresh_onLoad` to
+  `druid::pivot::source_list_refresh_onload`
 
 ## [1.0.0] - 2016-03-07
 ### Changed

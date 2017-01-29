@@ -17,7 +17,7 @@ class druid::pivot (
   $max_workers                  = 0,
   $use_segment_metadata         = false,
   $source_list_refresh_interval = 0,
-  $source_list_refresh_onLoad   = false,
+  $source_list_refresh_onload   = false,
   $install_nodejs               = false,
   $nodejs_version               = 'latest',
 ){
@@ -37,7 +37,7 @@ class druid::pivot (
     $enable_stdout_log,
     $enable_file_log,
     $use_segment_metadata,
-    $source_list_refresh_onLoad,
+    $source_list_refresh_onload,
     $install_nodejs
   )
 
