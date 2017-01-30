@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Default imply version changed from 1.1.0 to 1.2.1
 - Change name of pivot config file from `pivot_config.yaml` to `config.yaml`
 
+### Dropped
+- Removed the `CONTRIBUTORS` file. You can get the contributors via the GitHub API
+
 ### Fixed
 - Fix middleManager node
 - Fix variable contains an uppercase letter puppet-lint warnings which means
