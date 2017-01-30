@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Dropped
 - Removed the `CONTRIBUTORS` file. You can get the contributors via the GitHub API
+- Removed the `Gemfile.lock` file as version-dependent
 
 ### Fixed
 - Fix middleManager node
