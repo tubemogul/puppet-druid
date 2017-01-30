@@ -367,7 +367,7 @@ Check for new dataSources periodically. Set to 0 to disable background introspec
 
 Default : 0
 
-#####  `source_list_refresh_onLoad`
+#####  `source_list_refresh_onload`
 
 Checks for new dataSources every time Pivot is loaded
 
