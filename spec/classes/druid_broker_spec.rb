@@ -10,7 +10,7 @@ describe 'druid::broker' do
           :lsbdistid => 'Ubuntu',
           :lsbdistcodename => 'trusty',
           :lsbdistrelease => '14.04',
-          :puppetversion   => Puppet.version,
+          :puppetversion   => Puppet.version
         }}
 
         it { is_expected.to compile.with_all_deps }

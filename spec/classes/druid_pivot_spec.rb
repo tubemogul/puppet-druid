@@ -12,7 +12,7 @@ describe 'druid::pivot' do
             :operatingsystem => 'Ubuntu',
             :osfamily        => 'Debian',
             :lsbdistid       => 'Ubuntu',
-            :puppetversion   => Puppet.version,
+            :puppetversion   => Puppet.version
           }
         end
 
@@ -29,7 +29,7 @@ describe 'druid::pivot' do
 
         describe 'with Nodejs with the APT source' do
           let(:params) {{
-            :install_nodejs => true,
+            :install_nodejs => true
           }}
           it { is_expected.to contain_package('nodejs')\
             .with_ensure('latest')
@@ -45,10 +45,10 @@ describe 'druid::pivot' do
       let(:facts) {{
         :osfamily        => 'Solaris',
         :operatingsystem => 'Nexenta',
-        :puppetversion   => Puppet.version,
+        :puppetversion   => Puppet.version
       }}
       let(:params) {{
-        :install_nodejs => true,
+        :install_nodejs => true
       }}
 
       it { expect { should contain_class('druid::pivot::install') }.to raise_error(Puppet::Error, /Solaris not supported to install the specific APT Source for Nodejs/) }
