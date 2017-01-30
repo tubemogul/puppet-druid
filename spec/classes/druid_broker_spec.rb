@@ -6,11 +6,11 @@ describe 'druid::broker' do
       describe "druid::broker class without any parameters on #{osfamily}" do
         let(:params) {{ }}
         let(:facts) {{
-          :osfamily => osfamily,
-          :lsbdistid => 'Ubuntu',
-          :lsbdistcodename => 'trusty',
-          :lsbdistrelease => '14.04',
-          :puppetversion   => Puppet.version
+          osfamily: osfamily,
+          lsbdistid: 'Ubuntu',
+          lsbdistcodename: 'trusty',
+          lsbdistrelease: '14.04',
+          puppetversion: Puppet.version
         }}
 
         it { is_expected.to compile.with_all_deps }
