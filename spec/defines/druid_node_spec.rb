@@ -29,7 +29,7 @@ require 'spec_helper'
         }
       end
       it { is_expected.to contain_class('druid') }
-      #it { is_expected.to contain_druid__node(node) }
+      # it { is_expected.to contain_druid__node(node) }
 
       it { is_expected.to contain_file("/opt/imply/conf/druid/#{node}/runtime.properties") }
       it { is_expected.to contain_file("/etc/init.d/druid-#{node}") }
