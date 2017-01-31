@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- The path to the archive module in the `metadata.json` was incorrect
+- The path in the `.fixtures.yml` was referencing an old path currently
+  deprecated
 
 ## [1.0.0] - 2017-01-30
 ### Added
