@@ -26,12 +26,12 @@ describe 'druid::pivot' do
         it { is_expected.to contain_file('pivot_config.yaml') }
         it { is_expected.to contain_file('/etc/init.d/pivot') }
         it { is_expected.to contain_service('pivot') }
+      end
 
-        describe 'with Nodejs with the APT source' do
-          let(:params) { { install_nodejs: true } }
-          it { is_expected.to contain_package('nodejs').with_ensure('latest') }
-          it { is_expected.to contain_apt__source('apt-node_4.x') }
-        end
+      describe 'with Nodejs with the APT source' do
+        let(:params) { { install_nodejs: true } }
+        it { is_expected.to contain_package('nodejs').with_ensure('latest') }
+        it { is_expected.to contain_apt__source('apt-node_4.x') }
       end
     end
   end

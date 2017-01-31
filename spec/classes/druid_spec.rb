@@ -34,26 +34,26 @@ describe 'druid' do
           is_expected.to contain_file('log4j2.xml').\
             with_path('/opt/imply/conf/druid/_common/log4j2.xml')
         end
+      end
 
-        describe 'with Java and PPA' do
-          let(:params) { { install_java: true } }
+      describe 'with Java and PPA' do
+        let(:params) { { install_java: true } }
 
-          it { is_expected.to contain_apt__ppa('ppa:openjdk-r/ppa').that_comes_before('Class[java]') }
-          it { is_expected.to contain_package('software-properties-common') }
+        it { is_expected.to contain_apt__ppa('ppa:openjdk-r/ppa').that_comes_before('Class[java]') }
+        it { is_expected.to contain_package('software-properties-common') }
 
-          it { is_expected.to contain_class('java').with_package('openjdk-8-jdk') }
+        it { is_expected.to contain_class('java').with_package('openjdk-8-jdk') }
+      end
+
+      describe 'with Java without PPA' do
+        let(:params) do
+          {
+            install_java: true,
+            java_ppa: :undef
+          }
         end
 
-        describe 'with Java without PPA' do
-          let(:params) do
-            {
-              install_java: true,
-              java_ppa: :undef
-            }
-          end
-
-          it { is_expected.to contain_class('java').with_package('openjdk-8-jdk') }
-        end
+        it { is_expected.to contain_class('java').with_package('openjdk-8-jdk') }
       end
     end
   end
