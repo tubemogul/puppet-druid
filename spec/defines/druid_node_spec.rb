@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 ['broker', 'coordinator', 'historical', 'middle_manager', 'overlord'].each do |node|
-
   describe 'druid::node', type: :define do
-
     let(:facts) do
       {
         osfamily: 'Debian',

@@ -80,5 +80,4 @@ describe 'druid' do
       it { expect { should contain_class('druid::install') }.to raise_error(Puppet::Error, /Solaris not supported to install the PPA/) }
     end
   end
-
 end

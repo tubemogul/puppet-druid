@@ -23,5 +23,4 @@ describe 'druid::historical' do
       end
     end
   end
-
 end

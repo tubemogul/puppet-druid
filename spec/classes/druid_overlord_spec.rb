@@ -23,5 +23,4 @@ describe 'druid::overlord' do
       end
     end
   end
-
 end

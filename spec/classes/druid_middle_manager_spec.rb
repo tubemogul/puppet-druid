@@ -23,5 +23,4 @@ describe 'druid::middle_manager' do
       end
     end
   end
-
 end

@@ -23,5 +23,4 @@ describe 'druid::broker' do
       end
     end
   end
-
 end

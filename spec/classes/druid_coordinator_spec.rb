@@ -23,5 +23,4 @@ describe 'druid::coordinator' do
       end
     end
   end
-
 end
