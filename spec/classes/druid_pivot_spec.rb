@@ -4,7 +4,7 @@ describe 'druid::pivot' do
   context 'supported operating systems' do
     ['Debian'].each do |osfamily|
       describe "druid class without any parameters on #{osfamily}" do
-        let(:params) {{ }}
+        let(:params) { {} }
         let :facts do
           {
             lsbdistrelease: '14.04',
@@ -28,9 +28,7 @@ describe 'druid::pivot' do
         it { is_expected.to contain_service('pivot') }
 
         describe 'with Nodejs with the APT source' do
-          let(:params) {{
-            install_nodejs: true
-          }}
+          let(:params) { { install_nodejs: true } }
           it { is_expected.to contain_package('nodejs')\
             .with_ensure('latest')
           }
@@ -42,14 +40,14 @@ describe 'druid::pivot' do
 
   context 'unsupported operating system' do
     describe 'curator class without any parameters on Solaris/Nexenta' do
-      let(:facts) {{
-        osfamily: 'Solaris',
-        operatingsystem: 'Nexenta',
-        puppetversion: Puppet.version
-      }}
-      let(:params) {{
-        install_nodejs: true
-      }}
+      let(:facts) do
+        {
+          osfamily: 'Solaris',
+          operatingsystem: 'Nexenta',
+          puppetversion: Puppet.version
+        }
+      end
+      let(:params) { { install_nodejs: true } }
 
       it { expect { should contain_class('druid::pivot::install') }.to raise_error(Puppet::Error, /Solaris not supported to install the specific APT Source for Nodejs/) }
     end

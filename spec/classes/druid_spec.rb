@@ -3,16 +3,18 @@ require 'spec_helper'
 describe 'druid' do
   context 'fully supported operating systems' do
     ['Debian'].each do |osfamily|
-      let(:facts) {{
-        osfamily: osfamily,
-        lsbdistid: 'Ubuntu',
-        lsbdistcodename: 'trusty',
-        lsbdistrelease: '14.04',
-        architecture: 'amd64',
-        puppetversion: Puppet.version
-      }}
+      let(:facts) do
+        {
+          osfamily: osfamily,
+          lsbdistid: 'Ubuntu',
+          lsbdistcodename: 'trusty',
+          lsbdistrelease: '14.04',
+          architecture: 'amd64',
+          puppetversion: Puppet.version
+        }
+      end
       describe "druid class without any parameters on #{osfamily}" do
-        let(:params) {{ }}
+        let(:params) { {} }
 
         it { should compile.with_all_deps }
 
@@ -32,9 +34,7 @@ describe 'druid' do
         }
 
         describe "with Java and PPA" do
-          let(:params) {{
-            install_java: true
-          }}
+          let(:params) { { install_java: true } }
 
           it { is_expected.to contain_apt__ppa('ppa:openjdk-r/ppa')\
             .that_comes_before('Class[java]') }
@@ -46,10 +46,12 @@ describe 'druid' do
         end
 
         describe "with Java without PPA" do
-          let(:params) {{
-            install_java: true,
-            java_ppa: :undef
-          }}
+          let(:params) do
+            {
+              install_java: true,
+              java_ppa: :undef
+            }
+          end
 
           it { is_expected.to contain_class('java')\
             .with_package('openjdk-8-jdk')
@@ -61,15 +63,19 @@ describe 'druid' do
 
   context 'not fully supported operating system' do
     describe 'curator class without any parameters on Solaris/Nexenta' do
-      let(:facts) {{
-        osfamily: 'Solaris',
-        operatingsystem: 'Nexenta',
-        puppetversion: Puppet.version
-      }}
-      let(:params) {{
-        install_java: true,
-        java_ppa: 'ppa:openjdk-r/ppa'
-      }}
+      let(:facts) do
+        {
+          osfamily: 'Solaris',
+          operatingsystem: 'Nexenta',
+          puppetversion: Puppet.version
+        }
+      end
+      let(:params) do
+        {
+          install_java: true,
+          java_ppa: 'ppa:openjdk-r/ppa'
+        }
+      end
 
       it { expect { should contain_class('druid::install') }.to raise_error(Puppet::Error, /Solaris not supported to install the PPA/) }
     end

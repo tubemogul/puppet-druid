@@ -4,13 +4,15 @@ require 'spec_helper'
 
   describe 'druid::node', type: :define do
 
-    let(:facts) {{
-      osfamily: 'Debian',
-      lsbdistid: 'Ubuntu',
-      lsbdistcodename: 'trusty',
-      lsbdistrelease: '14.04',
-      puppetversion: Puppet.version
-    }}
+    let(:facts) do
+      {
+        osfamily: 'Debian',
+        lsbdistid: 'Ubuntu',
+        lsbdistcodename: 'trusty',
+        lsbdistrelease: '14.04',
+        puppetversion: Puppet.version
+      }
+    end
 
     let :pre_condition do
       'class { "druid": }'
