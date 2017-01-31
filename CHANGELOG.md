@@ -25,6 +25,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   renaming parameter `druid::pivot::source_list_refresh_onLoad` to
   `druid::pivot::source_list_refresh_onload`
 - Fixed typos in the `metadata.json`
+- Fixed some failing rspec tests with the latest puppet versions
+- Fixed some puppet warnings mainly class included by relative name
+- Code quality cleanup using rubocop
 
 ## [1.0.0] - 2016-03-07
 ### Changed
