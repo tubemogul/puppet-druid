@@ -19,7 +19,7 @@ describe 'druid' do
         it { is_expected.to compile.with_all_deps }
 
         it { is_expected.to contain_class('druid') }
-        it { is_expected.to contain_class('druid::install').that_comes_before('druid::config') }
+        it { is_expected.to contain_class('druid::install').that_comes_before('Class[druid::config]') }
         it { is_expected.to contain_class('druid::config') }
 
         it { is_expected.to contain_user('druid') }
