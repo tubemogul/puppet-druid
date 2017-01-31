@@ -26,23 +26,22 @@ describe 'druid' do
         it { is_expected.to contain_group('druid') }
         it { is_expected.to contain_archive('/usr/src/imply-1.2.1.tar.gz') }
         it { is_expected.to contain_file('/opt/imply') }
-        it { is_expected.to contain_file('common.runtime.properties')\
-          .with_path('/opt/imply/conf/druid/_common/common.runtime.properties')
-        }
-        it { is_expected.to contain_file('log4j2.xml')\
-          .with_path('/opt/imply/conf/druid/_common/log4j2.xml')
-        }
+        it do
+          is_expected.to contain_file('common.runtime.properties').\
+            with_path('/opt/imply/conf/druid/_common/common.runtime.properties')
+        end
+        it do
+          is_expected.to contain_file('log4j2.xml').\
+            with_path('/opt/imply/conf/druid/_common/log4j2.xml')
+        end
 
         describe "with Java and PPA" do
           let(:params) { { install_java: true } }
 
-          it { is_expected.to contain_apt__ppa('ppa:openjdk-r/ppa')\
-            .that_comes_before('Class[java]') }
+          it { is_expected.to contain_apt__ppa('ppa:openjdk-r/ppa').that_comes_before('Class[java]') }
           it { is_expected.to contain_package('software-properties-common') }
 
-          it { is_expected.to contain_class('java')\
-            .with_package('openjdk-8-jdk')
-          }
+          it { is_expected.to contain_class('java').with_package('openjdk-8-jdk') }
         end
 
         describe "with Java without PPA" do
@@ -53,9 +52,7 @@ describe 'druid' do
             }
           end
 
-          it { is_expected.to contain_class('java')\
-            .with_package('openjdk-8-jdk')
-          }
+          it { is_expected.to contain_class('java').with_package('openjdk-8-jdk') }
         end
       end
     end

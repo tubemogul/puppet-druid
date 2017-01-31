@@ -29,9 +29,7 @@ describe 'druid::pivot' do
 
         describe 'with Nodejs with the APT source' do
           let(:params) { { install_nodejs: true } }
-          it { is_expected.to contain_package('nodejs')\
-            .with_ensure('latest')
-          }
+          it { is_expected.to contain_package('nodejs').with_ensure('latest') }
           it { is_expected.to contain_apt__source('apt-node_4.x') }
         end
       end
