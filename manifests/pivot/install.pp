@@ -7,7 +7,7 @@ class druid::pivot::install {
   if $druid::pivot::install_nodejs {
     case $::osfamily {
       'Debian': {
-        include apt
+        include ::apt
         apt::source { 'apt-node_4.x':
           location => 'https://deb.nodesource.com/node_4.x',
           repos    => 'main',

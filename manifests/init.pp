@@ -51,9 +51,9 @@ class druid (
   validate_bool($enable_service)
   validate_array($java_classpath_extensions)
 
-  contain 'druid::install'
-  contain 'druid::config'
+  contain '::druid::install'
+  contain '::druid::config'
 
-Class['druid::install'] ->
-Class['druid::config']
+Class['::druid::install'] ->
+Class['::druid::config']
 }

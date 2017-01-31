@@ -3,32 +3,38 @@
   "version": "0.2.0",
   "author": "TubeMogul Inc.",
   "summary": "Puppet module to manage Druid platform based on imply.io",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "git@github.com:tubemogul/puppet-druid.git",
   "project_page": "https://github.com/tubemogul/puppet-druid",
   "issues_url": "https://github.com/tubemogul/puppet-druid/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 1.0.0"
+      "version_requirement": ">= 4.0.0  < 5.0.0"
     },
     {
       "name": "puppetlabs-apt",
-      "version_requirement": ">= 2.1.0"
+      "version_requirement": ">= 2.1.0  < 3.0.0"
     },
     {
       "name": "puppetlabs-archive",
-      "version_requirement": ">= 0.3.0"
+      "version_requirement": ">= 0.3.0 < 2.0.0"
     }
   ],
-  {
-    "operatingsystem_support": [
-      {
-        "operatingsystem": "Ubuntu",
-        "operatingsystemrelease": [
-          "14.04"
-        ]
-      }
-    ]
-  }
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [ "7", "8" ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "14.04", "16.04" ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.0.0 < 5.0.0"
+    }
+  ]
 }

@@ -18,7 +18,7 @@ define druid::node (
   $java_opts,
   $service_name = $title,
 ) {
-  require druid
+  require ::druid
 
   validate_string(
     $config,
