@@ -49,7 +49,7 @@ describe 'druid::pivot' do
       end
       let(:params) { { install_nodejs: true } }
 
-      it { expect { should contain_class('druid::pivot::install') }.to raise_error(Puppet::Error, %r{Solaris not supported to install the specific APT Source for Nodejs}) }
+      it { expect { is_expected.to contain_class('druid::pivot::install') }.to raise_error(Puppet::Error, %r{Solaris not supported to install the specific APT Source for Nodejs}) }
     end
   end
 end

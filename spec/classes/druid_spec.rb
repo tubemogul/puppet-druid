@@ -16,20 +16,20 @@ describe 'druid' do
       describe "druid class without any parameters on #{osfamily}" do
         let(:params) { {} }
 
-        it { should compile.with_all_deps }
+        it { is_expected.to compile.with_all_deps }
 
-        it { should contain_class('druid') }
-        it { should contain_class('druid::install').that_comes_before('druid::config') }
-        it { should contain_class('druid::config') }
+        it { is_expected.to contain_class('druid') }
+        it { is_expected.to contain_class('druid::install').that_comes_before('druid::config') }
+        it { is_expected.to contain_class('druid::config') }
 
-        it { should contain_user('druid') }
-        it { should contain_group('druid') }
-        it { should contain_archive('/usr/src/imply-1.2.1.tar.gz') }
-        it { should contain_file('/opt/imply') }
-        it { should contain_file('common.runtime.properties')\
+        it { is_expected.to contain_user('druid') }
+        it { is_expected.to contain_group('druid') }
+        it { is_expected.to contain_archive('/usr/src/imply-1.2.1.tar.gz') }
+        it { is_expected.to contain_file('/opt/imply') }
+        it { is_expected.to contain_file('common.runtime.properties')\
           .with_path('/opt/imply/conf/druid/_common/common.runtime.properties')
         }
-        it { should contain_file('log4j2.xml')\
+        it { is_expected.to contain_file('log4j2.xml')\
           .with_path('/opt/imply/conf/druid/_common/log4j2.xml')
         }
 
@@ -77,7 +77,7 @@ describe 'druid' do
         }
       end
 
-      it { expect { should contain_class('druid::install') }.to raise_error(Puppet::Error, %r{Solaris not supported to install the PPA}) }
+      it { expect { is_expected.to contain_class('druid::install') }.to raise_error(Puppet::Error, %r{Solaris not supported to install the PPA}) }
     end
   end
 end
