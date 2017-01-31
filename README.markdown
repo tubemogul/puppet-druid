@@ -18,26 +18,25 @@
 
 ## Overview
 
-Puppet module to manage Druid based on the Imply.io stack. This module manage all the Druid daemons and Bard.
+Puppet module to manage Druid based on the Imply.io stack. This module manage all the Druid daemons and Pivot.
 
 Some modifications will be implemented to support the Druid.io version in a near future.
 
 ## Module Description
 
-This module will deploy the Imply.io tarball (See : http://imply.io/download) and will give you the possibility to start the different Druid services but also Bard (Bundle for Pivot, Plywood, and
-PlyQL).
+This module will deploy the Imply.io tarball (See: http://imply.io/download) and will give you the possibility to start the different Druid services but also Pivot.
 
-More information about the Imply.io bundle here : http://imply.io.
+More information about the Imply.io bundle here: http://imply.io.
 
 ## Setup
 
 ### What druid affects
 
-Files manage by this module :
+Files managed by this module:
 
-* Deploy the imply tarball using Archive : https://forge.puppetlabs.com/nanliu/archive
-* Modify configuration in (by default) : /opt/imply/conf
-* Manage all Druid and Bard services : /etc/init.d/druid-*
+* Deploy the imply tarball using Archive: [puppet-archive](https://forge.puppetlabs.com/puppet/archive)
+* Modify configuration in (by default): `/opt/imply/conf`
+* Manage all Druid and Pivot services: `/etc/init.d/druid-*`
 
 If asked, the module will also deploy Java and Nodejs.
 
@@ -46,17 +45,17 @@ If asked, the module will also deploy Java and Nodejs.
 
 ## Usage
 
-Deploy the version 1.1.0 of the Imply bundle :
+Deploy the version 1.1.0 of the Imply bundle:
 
-```
+```puppet
 class { 'druid':
   imply_version => '1.1.0'
 }
 ```
 
-If you also want to install Java :
+If you also want to install Java:
 
-```
+```puppet
 class { 'druid':
   install_java => true,
 }
@@ -65,41 +64,41 @@ class { 'druid':
 By default, the package 'openjdk-8-jdk' from the PPA ppa:openjdk-r/ppa' will be deployed. You can override this configuration.
 
 
-Configure a Master node :
+Configure a Master node:
 
-```
+```puppet
 class { 'druid': }
 class { 'druid::coordinator': }
 class { 'druid::overlord': }
 ```
 
-Configure a Data node :
+Configure a Data node:
 
-```
+```puppet
 class { 'druid': }
 class { 'druid::middle_manager': }
 class { 'druid::historical': }
 ```
 
-Configure a Query node :
+Configure a Query node:
 
-```
+```puppet
 class { 'druid': }
 class { 'druid::broker': }
-class { 'druid::bard': }
+class { 'druid::pivot': }
 ```
 
-By default the class `druid::bard` will not deploy Nodejs. You can use another Puppet module to deploy it before starting Bard or use the `install_nodejs` parameter :
+By default the class `druid::pivot` will not deploy Nodejs. You can use another Puppet module to deploy it before starting Pivot or use the `install_nodejs` parameter:
 
-```
-class { 'druid::bard':
+```puppet
+class { 'druid::pivot':
   install_nodejs => false,
 }
 ```
 
-Here is an example with MySQL as a Metadata Storage and Statsd emitter for the performance metrics :
+Here is an example with MySQL as a Metadata Storage and Statsd emitter for the performance metrics:
 
-```
+```puppet
 class { 'druid':
   java_classpath_extensions => [
     'io/druid/extensions/mysql-metadata-storage/0.8.2/mysql-metadata-storage-0.8.2.jar',
@@ -127,9 +126,9 @@ class { 'druid':
 }
 ```
 
-Deploy the coordinator with some specific configuration :
+Deploy the coordinator with some specific configuration:
 
-```
+```puppet
 class { 'druid::coordinator':
   config => {
     'coordinator' => {
@@ -148,33 +147,33 @@ class { 'druid::coordinator':
 
 Fetch and deploy the Imply.io tarball.
 
-This class will also deploy the Druid common configuration. See : [Configuring Druid](http://druid.io/docs/latest/configuration/index.html)
+This class will also deploy the Druid common configuration. See: [Configuring Druid](http://druid.io/docs/latest/configuration/index.html)
 
 **Parameters within `druid`:**
 
 ##### `imply_version`
 
-Version of the Imply.io tarball to deploy. See : [http://imply.io/download](http://imply.io/download)
+Version of the Imply.io tarball to deploy. See: [http://imply.io/download](http://imply.io/download)
 
-Default : 1.0.0
+Default: `1.2.1`
 
 ##### `install_method`
 
 Define the installation method. For now, only tarball is supported.
 
-Default : tarball
+Default: `tarball`
 
 ##### `install_dir`
 
-Where to deploy the tarbal
+Where to deploy the tarball
 
-Default : /opt
+Default: `/opt`
 
 ##### `install_link`
 
 Name of the destination link
 
-Default : imply
+Default: `imply`
 
 ##### `install_java`
 
@@ -182,91 +181,91 @@ If true, the module will try to install Java. This parameter is used with `java_
 
 For the moment, only Debian link distribution are supported.
 
-Default : false
+Default: `false`
 
-#####  `java_ppa`
+##### `java_ppa`
 
 Define the name of the Ubuntu PPA which will be used to deploy Java
 
-Requirement : $osfamily == Debian
+Requirement: `$osfamily == Debian`
 
-Default : ppa:openjdk-r/ppa
+Default: `ppa:openjdk-r/ppa`
 
-#####  `java_package`
+##### `java_package`
 
 Package name of Java
 
-Default : openjdk-8-jdk
+Default: `openjdk-8-jdk`
 
-#####  `java_home`
+##### `java_home`
 
 Java Home directory
 
-Default : /usr/lib/jvm/java-8-openjdk-amd64
+Default: `/usr/lib/jvm/java-8-openjdk-amd64`
 
-#####  `config_dir`
+##### `config_dir`
 
 Druid configuration directory
 
-Default : /opt/imply/conf/druid
+Default: `/opt/imply/conf/druid`
 
-#####  `dist_dir`
+##### `dist_dir`
 
 Druid distribution directory
 
-Default : /opt/imply/dist/druid
+Default: `/opt/imply/dist/druid`
 
-#####  `user`
+##### `user`
 
 Druid username
 
-Default : druid
+Default: `druid`
 
-#####  `group`
+##### `group`
 
 Druid group name
 
-Default : druid
+Default: `druid`
 
-#####  `enable_service`
+##### `enable_service`
 
 If true, the module will start the Druid services and restarts them when configuration changes are applied
 
-Default : true
+Default: `true`
 
-#####  `java_classpath`
+##### `java_classpath`
 
 Define where Druid will find all the JAR
 
-Default : /opt/imply/dist/druid/lib/*
+Default: `/opt/imply/dist/druid/lib/*`
 
-#####  `java_classpath_extensions`
+##### `java_classpath_extensions`
 
 Define the list of Java extensions to load at the Druid services start
 
-Example, If you want to use MySQL as your metadata storage :
+Example, If you want to use MySQL as your metadata storage:
 
-```
+```yaml
 druid::java_classpath_extensions:
   - 'io/druid/extensions/mysql-metadata-storage/0.8.2/mysql-metadata-storage-0.8.2.jar'
   - 'mysql/mysql-connector-java/5.1.34/mysql-connector-java-5.1.34.jar'
 ```
 
-Default : []
+Default: `[]`
 
-#####  `log_dir`
+##### `log_dir`
 
 Log directory
 
-Default : /var/log/druid
+Default: `/var/log/druid`
 
-#####  `common_config`
+##### `common_config`
 
 Hash defining the Druid Common configuration
 
-See : [http://druid.io/docs/latest/configuration/index.html](http://druid.io/docs/latest/configuration/index.html)
+See: [http://druid.io/docs/latest/configuration/index.html](http://druid.io/docs/latest/configuration/index.html)
 
-Default : {}
+Default: `{}`
 
 #### Class: `druid::coordinator`, `druid::overlord`, `druid::historical`, `druid::middle_manager`, `druid::broker`
 
@@ -276,109 +275,114 @@ Each of these classes will use the Puppet Type `druid::node` to define the confi
 
 **Parameters within druid::coordinator`, `druid::overlord`, `druid::historical`, `druid::middle_manager`, `druid::broker`:**
 
-#####  `service`
+##### `service`
 
 Name of the Druid Node
 
-Default : name of the class. For druid::coordinator, $service == 'coordinator'
+Default: name of the class. For druid::coordinator, `$service == 'coordinator'`
 
-#####  `host`
+##### `host`
 
 Listening host of the Druid Node
 
-Default : localhost
+Default: `localhost`
 
-#####  `port`
+##### `port`
 
 Listening port of the Druid Node
 
-Default : 8083
+Default: `8083`
 
-#####  `java_opts`
+##### `java_opts`
 
 Java options for the Java daemon
 
-Default : []
+Default: `[]`
 
-#####  `config`
-
-Hash defining the configuration of the Druid Node
-
-Default : {}
-
-#### Class: `druid::bard`
-
-This class will deployed and configure Bard. Bard is the official bundle for Pivot, Plywood and PlyQL.
-
-**Parameters within druid::bard`:**
-
-#####  `config_dir`
+##### `config`
 
 Hash defining the configuration of the Druid Node
 
-Default : {}
+Default: `{}`
 
-#####  `port`
+#### Class: `druid::pivot`
 
-Port of Bard
+This class will deployed and configure pivot.
 
-Default : 9095
+**Parameters within druid::pivot`:**
 
-#####  `broker_host`
+##### `config_dir`
 
-Broker host used by Bard
+Hash defining the configuration of the Druid Node
 
-Default : localhost:8082
+Default: `{}`
 
-#####  `enable_stdout_log`
+##### `port`
+
+Port of Pivot
+
+Default: `9095`
+
+##### `broker_host`
+
+Broker host used by Pivot
+
+Default: `localhost:8082`
+
+##### `enable_stdout_log`
 
 Print logs to stdout
 
-Default : true
+Default: `true`
 
-#####  `enable_file_log`
+##### `enable_file_log`
 
 Enable file logging
 
-Default : true
+Default: `true`
 
-#####  `log_dir`
+##### `log_dir`
 
-Location for Bard log files
+Location for Pivot log files
 
-Default : /var/log/bard
+Default: `/var/log/pivot`
 
-#####  `max_workers`
+##### `max_workers`
 
 Max number of worker processes
 
-Default : 0
+Default: `0`
 
-#####  `use_segment_metadata`
+##### `use_segment_metadata`
 
 If true, use a segment metadata query instead of a GET request to /druid/v2/datasources to
 determine datasource dimensions and metrics.
 
-Default : false
+Default: `false`
 
-#####  `source_list_refresh_interval`
+##### `source_list_refresh_interval`
 
 Check for new dataSources periodically. Set to 0 to disable background introspection
 
-Default : 0
+Default: `0`
 
-#####  `source_list_refresh_onload`
+##### `source_list_refresh_onload`
 
 Checks for new dataSources every time Pivot is loaded
 
-Default : false
+Default: `false`
 
-#####  `install_nodejs`
+##### `install_nodejs`
 
 If true, the module will install NodeJS
 
-Default : false
+Default: `false`
 
+##### `nodejs_version`
+
+Version of NdeJS to install
+
+Default: `latest`
 
 ## Limitations
 

@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Move the changelog to markdown and start using semver
-- Change bard to pivot
+- Change classes `druid::bart*` classes to `druid::pivot*`
 - Default imply version changed from 1.1.0 to 1.2.1
 - Change name of pivot config file from `pivot_config.yaml` to `config.yaml`
 - Update the `metadata.json` to meet the correct requirements and supported OS
@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed some failing rspec tests with the latest puppet versions
 - Fixed some puppet warnings mainly class included by relative name
 - Code quality cleanup using rubocop
+- Documentation updates
 
 ## [1.0.0] - 2016-03-07
 ### Changed
