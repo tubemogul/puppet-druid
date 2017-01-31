@@ -9,7 +9,7 @@ class druid::install {
     if $druid::java_ppa {
       case $::osfamily {
         'Debian': {
-          include apt
+          include ::apt
           apt::ppa { $druid::java_ppa:
             package_manage => true,
             before         => Class['java'],
@@ -22,13 +22,13 @@ class druid::install {
       }
     }
 
-    class { 'java':
+    class { '::java':
       package => $druid::java_package,
     }
   }
 
   if $druid::install_method == 'tarball' {
-    include 'archive'
+    include ::archive
     archive { "/usr/src/imply-${druid::imply_version}.tar.gz":
       source       => "http://static.imply.io/release/imply-${druid::imply_version}.tar.gz",
       extract      => true,

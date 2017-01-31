@@ -14,7 +14,7 @@ class druid::broker (
   $config    = {},
   $java_opts = [],
 ){
-  require druid
+  require ::druid
 
   validate_string(
     $service,

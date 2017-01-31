@@ -14,7 +14,7 @@ class druid::overlord (
   $config    = {},
   $java_opts = [],
 ){
-  require druid
+  require ::druid
 
   validate_string(
     $service,

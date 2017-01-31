@@ -31,7 +31,7 @@ class druid::pivot (
   validate_integer([
     $port,
     $max_workers,
-    $source_list_refresh_interval
+    $source_list_refresh_interval,
   ])
   validate_bool(
     $enable_stdout_log,
@@ -41,10 +41,10 @@ class druid::pivot (
     $install_nodejs
   )
 
-  Class['druid'] ->
-  class { 'druid::pivot::install': } ->
-  class { 'druid::pivot::config':  } ~>
-  class { 'druid::pivot::service': } ->
-  Class['druid::pivot']
+  Class['::druid'] ->
+  class { '::druid::pivot::install': } ->
+  class { '::druid::pivot::config':  } ~>
+  class { '::druid::pivot::service': } ->
+  Class['::druid::pivot']
 
 }

@@ -14,7 +14,7 @@ class druid::coordinator (
   $java_opts = [],
   $config    = {},
 ){
-  require druid
+  require ::druid
 
   validate_string(
     $service,
