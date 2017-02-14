@@ -23,4 +23,10 @@ class druid::pivot::config {
     mode    => '0755',
     content => template('druid/pivot.init.erb'),
   }
+  if $druid::pivot::pivot_license_source {
+    file {"${druid::pivot::config_dir}/pivot-license":
+      ensure => file,
+      source => $druid::pivot::pivot_license_source,
+    }
+  }
 }

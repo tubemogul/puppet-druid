@@ -20,6 +20,7 @@ class druid::pivot (
   $source_list_refresh_onload   = false,
   $install_nodejs               = false,
   $nodejs_version               = 'latest',
+  $pivot_license_source         = undef,
 ){
   require '::druid'
 
