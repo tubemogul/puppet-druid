@@ -347,6 +347,12 @@ Location for Pivot log files
 
 Default: `/var/log/pivot`
 
+####  `pivot_license_source`
+
+Location for Pivot license source
+
+Default: `undef`
+
 ##### `max_workers`
 
 Max number of worker processes
