@@ -59,4 +59,10 @@ class druid (
 
 Class['::druid::install'] ->
 Class['::druid::config']
+if $logstash_server {
+  class {'::druid:logstash':
+    require => Class['::druid::install'],
+    before  => Class['::druid::config'],
+  }
+}
 }
