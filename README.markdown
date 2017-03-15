@@ -150,7 +150,9 @@ class { 'druid':
 }
 ``` 
 
-It is recommended to add `-DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector` to your jvm options when using the logstash output so as to avoid blocking.
+It is recommended to add: 
+`-DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector` 
+to your jvm options when using the logstash output so as to avoid blocking.
 
 
 ## Reference
