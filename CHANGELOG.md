@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- addec the management of the license for druid-pivot
+
+### Changed
+- Puppet archive version 1.3.0 is the last one compatible with puppet 3.x and
+  the last one compatible with this module for now. Changing the `.fixtures.yml`
+  to reflect that.
+
 
 ## [1.0.1] - 2017-01-31
 ### Fixed
