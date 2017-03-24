@@ -13,6 +13,7 @@ describe 'druid' do
           puppetversion: Puppet.version
         }
       end
+
       describe "druid class without any parameters on #{osfamily}" do
         let(:params) { {} }
 
