@@ -28,6 +28,7 @@ require 'spec_helper'
           java_opts: ['-server', '-Xms10g', '-Xmx10g']
         }
       end
+
       it { is_expected.to contain_class('druid') }
       # it { is_expected.to contain_druid__node(node) }
 
