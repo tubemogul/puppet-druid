@@ -30,6 +30,9 @@ class druid (
   $java_classpath_extensions = [],
   $log_dir                   = '/var/log/druid',
   $common_config             = {},
+  $logstash_server           = undef,
+  $logstash_port             = 4561,
+  $logstash_user_fields      = '',
 
 ) {
   validate_hash($common_config)
@@ -56,4 +59,10 @@ class druid (
 
 Class['::druid::install'] ->
 Class['::druid::config']
+if $logstash_server {
+  class {'::druid::logstash':
+    require => Class['::druid::install'],
+    before  => Class['::druid::config'],
+  }
+}
 }

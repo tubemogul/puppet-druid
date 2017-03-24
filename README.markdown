@@ -138,6 +138,22 @@ class { 'druid::coordinator':
   }
 }
 ```
+Logstash:
+
+This module allows one to optionally add a second log4j2 appender that writes to a json_lines enabled logstash TCP socket (using https://github.com/DNSBelgium/log4j-jsonevent-layout)
+
+```puppet
+class { 'druid':
+  logstash_server      => 'log-endpoint.server.rocks',
+  logstash_port        => 4561,
+  logstash_user_fields => "servertype:druid, ip:${::ipaddress}",
+}
+``` 
+
+It is recommended to add: 
+`-DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector` 
+to your jvm options when using the logstash output so as to avoid blocking.
+
 
 ## Reference
 
@@ -266,6 +282,26 @@ Hash defining the Druid Common configuration
 See: [http://druid.io/docs/latest/configuration/index.html](http://druid.io/docs/latest/configuration/index.html)
 
 Default: `{}`
+
+#### `logstash_server`
+
+Hostname or IP of a logstash server listening for json_lines via TCP.  Enables the appender when defined.
+
+Default: `undef`
+
+#### `logstash_port`
+
+Port for the above server.
+
+Default: `4561`
+
+#### `logstash_user_fields`
+
+String of key:value pairs separated by commas.  Allows one to define custom fields in the json being sent to logstash.
+Ex: `"hostname:druidbox01, region:us-east-1"`
+
+Default: `''`
+
 
 #### Class: `druid::coordinator`, `druid::overlord`, `druid::historical`, `druid::middle_manager`, `druid::broker`
 
