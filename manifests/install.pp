@@ -33,8 +33,7 @@ class druid::install {
       source       => "http://static.imply.io/release/imply-${druid::imply_version}.tar.gz",
       extract      => true,
       extract_path => '/opt',
-    } ->
-    file { "${druid::install_dir}/${druid::install_link}":
+      } -> file { "${druid::install_dir}/${druid::install_link}":
       ensure => 'link',
       target => "${druid::install_dir}/imply-${druid::imply_version}",
     }
