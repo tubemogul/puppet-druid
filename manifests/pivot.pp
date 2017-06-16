@@ -42,10 +42,10 @@ class druid::pivot (
     $install_nodejs
   )
 
-  Class['::druid'] ->
-  class { '::druid::pivot::install': } ->
-  class { '::druid::pivot::config':  } ~>
-  class { '::druid::pivot::service': } ->
-  Class['::druid::pivot']
+  Class['::druid']
+  -> class { '::druid::pivot::install': }
+  -> class { '::druid::pivot::config':  }
+  ~> class { '::druid::pivot::service': }
+  -> Class['::druid::pivot']
 
 }

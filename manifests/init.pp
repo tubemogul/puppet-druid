@@ -57,8 +57,8 @@ class druid (
   contain '::druid::install'
   contain '::druid::config'
 
-Class['::druid::install'] ->
-Class['::druid::config']
+Class['::druid::install'] -> Class['::druid::config']
+
 if $logstash_server {
   class {'::druid::logstash':
     require => Class['::druid::install'],
