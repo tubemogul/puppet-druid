@@ -17,6 +17,7 @@ define druid::node (
   $initscript,
   $java_opts,
   $service_name = $title,
+  $environment_file,
 ) {
   require ::druid
 
@@ -44,11 +45,21 @@ define druid::node (
   }
 
   if $::service_provider == 'systemd' {
+
+    validate_string($environment_file)
+
+    file { 'environment_file':
+      ensure  => file,
+      path    => "${::druid::config_dir}/druid-${service_name}-environment",
+      mode    => '0664',
+      content => $environment_file,
+    }
     file { "${service_name}_init":
       ensure  => file,
       path    => "/etc/systemd/system/druid-${service_name}.service",
       mode    => '0664',
       content => $initscript,
+      require => File['environment_file'],
     }
   }
   else {

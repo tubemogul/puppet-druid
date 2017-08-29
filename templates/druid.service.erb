@@ -4,25 +4,7 @@ Description=Druid <%= @service %> Node
 [Service]
 Type=simple
 WorkingDirectory="<%= scope.lookupvar("::druid::dist_dir") %>"
-# Environment varibles for Druid
-Environment=DRUID_CONFIG="<%= scope.lookupvar("::druid::config_dir") %>"
-Environment=DRUID_JAVA_OPTS="<%= @java_opts.join(' ') %>"
-<%- if scope.lookupvar("::druid::java_classpath_extensions").size > 0 -%>
-Environment=DRUID_EXT_REPO="<%= scope.lookupvar("::druid::extensions_dir") %>"
-Environment=DRUID_EXT="<%= scope.lookupvar("::druid::java_classpath_extensions").map{ |ext| "${DRUID_EXT_REPO}/#{ext}" }.join(':') %>"
-Environment=DRUID_JAVA_CLASSPATH="${DRUID_CONFIG}/<%= @service %>:${DRUID_CONFIG}/_common:${DRUID_EXT}:<%= scope.lookupvar("::druid::java_classpath") %>"
-<%- else -%>
-Environment=DRUID_JAVA_CLASSPATH="${DRUID_CONFIG}/<%= @service %>:${DRUID_CONFIG}/_common:<%= scope.lookupvar("::druid::java_classpath") %>"
-<%- end -%>
-
-Environment=JAVA_HOME=<%= scope.lookupvar("::druid::java_home") %>
-Environment=PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-Environment=DAEMON=$JAVA_HOME/bin/java
-Environment=DAEMON_OPTS="${DRUID_JAVA_OPTS} -classpath ${DRUID_JAVA_CLASSPATH} io.druid.cli.Main server <%= @service %>"
-Environment=NAME="druid-<%= @service %>"
-Environment=DESC="druid <%= @service %>"
-Environment=PIDFILE="/var/run/druid/${NAME}.pid"
-Environment=LOGFILE="<%= scope.lookupvar("::druid::log_dir") %>/${NAME}.out"
+EnvironmentFile=<%= scope.lookupvar("::druid::config_dir") %>/druid-<% @service %>-environment
 
 ExecStartPre=mkdir -p `dirname ${LOGFILE}`
 ExecStart=/bin/sh -- -c "exec ${DAEMON} ${DAEMON_OPTS} > ${LOGFILE} 2>&1"

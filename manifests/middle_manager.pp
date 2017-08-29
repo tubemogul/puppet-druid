@@ -28,11 +28,16 @@ class druid::middle_manager (
     'systemd' => 'druid/druid.service.erb',
     default   => 'druid/druid.init.erb',
   }
+  $environment_file = $::service_provider ? {
+    'systemd' => 'druid/druid.env.erb',
+    default   => 'undef',
+  }
 
   druid::node { 'middleManager':
-    config     => template('druid/service.runtime.properties.erb'),
-    initscript => template($init),
-    java_opts  => $java_opts,
+    config           => template('druid/service.runtime.properties.erb'),
+    initscript       => template($init),
+    java_opts        => $java_opts,
+    environment_file => $environment_file,
   }
 
 }
