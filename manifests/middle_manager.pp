@@ -37,7 +37,7 @@ class druid::middle_manager (
     config           => template('druid/service.runtime.properties.erb'),
     initscript       => template($init),
     java_opts        => $java_opts,
-    environment_file => $env_file,
+    environment_file => template($env_file),
   }
 
 }
