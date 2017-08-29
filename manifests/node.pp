@@ -16,8 +16,8 @@ define druid::node (
   $config,
   $initscript,
   $java_opts,
-  $service_name = $title,
   $environment_file,
+  $service_name = $title,
 ) {
   require ::druid
 
@@ -48,7 +48,7 @@ define druid::node (
 
     validate_string($environment_file)
 
-    file { 'environment_file':
+    file { "${service_name}_environment_file":
       ensure  => file,
       path    => "${::druid::config_dir}/druid-${service_name}-environment",
       mode    => '0664',
@@ -59,7 +59,7 @@ define druid::node (
       path    => "/etc/systemd/system/druid-${service_name}.service",
       mode    => '0664',
       content => $initscript,
-      require => File['environment_file'],
+      require => File["${service_name}_environment_file"],
     }
   }
   else {
