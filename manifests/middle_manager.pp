@@ -28,7 +28,7 @@ class druid::middle_manager (
     'systemd' => 'druid/druid.service.erb',
     default   => 'druid/druid.init.erb',
   }
-  $environment_file = $::service_provider ? {
+  $env_file = $::service_provider ? {
     'systemd' => 'druid/druid.env.erb',
     default   => 'undef',
   }
@@ -37,7 +37,7 @@ class druid::middle_manager (
     config           => template('druid/service.runtime.properties.erb'),
     initscript       => template($init),
     java_opts        => $java_opts,
-    environment_file => $environment_file,
+    environment_file => $env_file,
   }
 
 }
