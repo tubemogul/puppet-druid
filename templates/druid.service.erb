@@ -8,7 +8,8 @@ EnvironmentFile=<%= scope.lookupvar("::druid::config_dir") %>/druid-<%= @service
 
 PermissionsStartOnly=true
 ExecStartPre=/bin/mkdir -p `dirname ${LOGFILE}`
-ExecStart=/bin/sh -c "exec ${DAEMON} ${DAEMON_OPTS} > ${LOGFILE} 2>&1"
+# See: https://unix.stackexchange.com/questions/358998/systemd-environmentfile-re-using-variables-how
+ExecStart=/bin/bash -ac ". <%= scope.lookupvar("::druid::config_dir") %>/druid-<%= @service %>-environment; exec ${DAEMON} ${DAEMON_OPTS} > ${LOGFILE} 2>&1"
 SuccessExitStatus=130 143
 Restart=on-failure
 PIDFile=${PIDFILE}
