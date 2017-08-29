@@ -37,7 +37,7 @@ class druid::historical (
     config           => template('druid/service.runtime.properties.erb'),
     initscript       => template($init),
     java_opts        => $java_opts,
-    environment_file => $environment_file,
+    environment_file => template($environment_file),
   }
 
 }
