@@ -26,7 +26,7 @@ class druid::historical (
 
   $init = $::service_provider ? {
     'systemd' => 'druid/druid.service.erb',
-    default   =>  'druid/druid.init.erb',
+    default   => 'druid/druid.init.erb',
   }
 
   druid::node { 'historical':

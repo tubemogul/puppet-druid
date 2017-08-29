@@ -25,7 +25,7 @@ Environment=PIDFILE="/var/run/druid/${NAME}.pid"
 Environment=LOGFILE="<%= scope.lookupvar("::druid::log_dir") %>/${NAME}.out"
 
 ExecStartPre=mkdir -p `dirname ${LOGFILE}`
-ExecStart=/usr/bin/java <%= @jvm_opts.join(' ') %> -classpath .:<%= scope.lookupvar("::#{@module_name}::install_dir") %>/druid/lib/* io.druid.cli.Main server historical
+ExecStart=/bin/sh -- -c "exec ${DAEMON} ${DAEMON_OPTS} > ${LOGFILE} 2>&1"
 SuccessExitStatus=130 143
 Restart=on-failure
 PIDFile=${PIDFILE}
