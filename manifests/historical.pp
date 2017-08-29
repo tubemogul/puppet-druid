@@ -24,9 +24,14 @@ class druid::historical (
   validate_hash($config)
   validate_array($java_opts)
 
+  $init = $::service_provider ? {
+    'systemd' => 'druid/druid.service.erb',
+    default   =>  'druid/druid.init.erb',
+  }
+
   druid::node { 'historical':
     config     => template('druid/service.runtime.properties.erb'),
-    initscript => template('druid/druid.init.erb'),
+    initscript => template($init),
     java_opts  => $java_opts,
   }
 
