@@ -4,10 +4,10 @@ Description=Druid <%= @service %> Node
 [Service]
 Type=simple
 WorkingDirectory=<%= scope.lookupvar("::druid::dist_dir") %>
-EnvironmentFile=<%= scope.lookupvar("::druid::config_dir") %>/druid-<% @service %>-environment
+EnvironmentFile=<%= scope.lookupvar("::druid::config_dir") %>/druid-<%= @service %>-environment
 
 PermissionsStartOnly=true
-ExecStartPre=mkdir -p `dirname ${LOGFILE}`
+ExecStartPre=/bin/mkdir -p `dirname ${LOGFILE}`
 ExecStart=/bin/sh -c "exec ${DAEMON} ${DAEMON_OPTS} > ${LOGFILE} 2>&1"
 SuccessExitStatus=130 143
 Restart=on-failure
