@@ -43,10 +43,19 @@ define druid::node (
     notify  => $notify_node,
   }
 
-  file { "/etc/init.d/druid-${service_name}":
-    ensure  => file,
-    mode    => '0755',
-    content => $initscript,
+  if $::service_provider == 'systemd' {
+    file { "/etc/systemd/system/druid-${service_name}.service":
+      ensure  => file,
+      mode    => '0664',
+      content => $initscript,
+    }
+  }
+  else {
+    file { "/etc/init.d/druid-${service_name}":
+      ensure  => file,
+      mode    => '0755',
+      content => $initscript,
+    }
   }
 
   service { "druid-${service_name}":
