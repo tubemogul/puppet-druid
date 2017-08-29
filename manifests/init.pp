@@ -11,7 +11,7 @@
 #
 
 class druid (
-  $imply_version             = '1.2.1',
+  $imply_version             = '2.0.0',
   $install_method            = 'tarball',
   $install_dir               = '/opt',
   $install_link              = 'imply',
