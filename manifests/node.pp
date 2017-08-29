@@ -44,15 +44,17 @@ define druid::node (
   }
 
   if $::service_provider == 'systemd' {
-    file { "/etc/systemd/system/druid-${service_name}.service":
+    file { "${service_name}_init":
       ensure  => file,
+      path    => "/etc/systemd/system/druid-${service_name}.service",
       mode    => '0664',
       content => $initscript,
     }
   }
   else {
-    file { "/etc/init.d/druid-${service_name}":
+    file { "${service_name}_init":
       ensure  => file,
+      path    => "/etc/init.d/druid-${service_name}",
       mode    => '0755',
       content => $initscript,
     }
@@ -62,7 +64,7 @@ define druid::node (
     ensure  => $ensure_node,
     enable  => true,
     require => File[
-      "/etc/init.d/druid-${service_name}",
+      "${service_name}_init",
       "${druid::config_dir}/${service_name}/runtime.properties"
     ],
   }
