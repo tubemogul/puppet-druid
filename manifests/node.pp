@@ -61,6 +61,11 @@ define druid::node (
       content => $initscript,
       require => File["${service_name}_environment_file"],
     }
+    exec { 'systemd-reload':
+      command     => '/bin/systemctl daemon-reload',
+      refreshonly => true,
+      subscribe   => File["${service_name}_init"],
+    }
   }
   else {
     file { "${service_name}_init":

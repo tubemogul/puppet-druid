@@ -32,6 +32,11 @@ class druid::pivot::config {
       content => template('druid/pivot.service.erb'),
       require => File['environment_file'],
     }
+    exec { 'systemd-reload':
+      command     => '/bin/systemctl daemon-reload',
+      refreshonly => true,
+      subscribe   => File['/etc/systemd/druid-pivot.service'],
+    }
   }
   else {
     file { '/etc/init.d/pivot':
