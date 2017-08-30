@@ -1,0 +1,19 @@
+[Unit]
+Description=Druid <%= @service %> Node
+
+[Service]
+Type=simple
+WorkingDirectory=<%= scope.lookupvar("::druid::dist_dir") %>
+EnvironmentFile=<%= scope.lookupvar("::druid::config_dir") %>/druid-<%= @service %>-environment
+
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p `dirname ${LOGFILE}`
+# See: https://unix.stackexchange.com/questions/358998/systemd-environmentfile-re-using-variables-how
+ExecStart=/bin/bash -ac ". <%= scope.lookupvar("::druid::config_dir") %>/druid-<%= @service %>-environment; exec ${DAEMON} ${DAEMON_OPTS} > ${LOGFILE} 2>&1"
+SuccessExitStatus=130 143
+Restart=on-failure
+PIDFile=${PIDFILE}
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target

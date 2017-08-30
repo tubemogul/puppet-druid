@@ -16,6 +16,7 @@ define druid::node (
   $config,
   $initscript,
   $java_opts,
+  $environment_file,
   $service_name = $title,
 ) {
   require ::druid
@@ -43,17 +44,43 @@ define druid::node (
     notify  => $notify_node,
   }
 
-  file { "/etc/init.d/druid-${service_name}":
-    ensure  => file,
-    mode    => '0755',
-    content => $initscript,
+  if $::service_provider == 'systemd' {
+
+    validate_string($environment_file)
+
+    file { "${service_name}_environment_file":
+      ensure  => file,
+      path    => "${::druid::config_dir}/druid-${service_name}-environment",
+      mode    => '0664',
+      content => $environment_file,
+    }
+    file { "${service_name}_init":
+      ensure  => file,
+      path    => "/etc/systemd/system/druid-${service_name}.service",
+      mode    => '0664',
+      content => $initscript,
+      require => File["${service_name}_environment_file"],
+    }
+    exec { "${service_name}_systemd-reload":
+      command     => '/bin/systemctl daemon-reload',
+      refreshonly => true,
+      subscribe   => File["${service_name}_init"],
+    }
+  }
+  else {
+    file { "${service_name}_init":
+      ensure  => file,
+      path    => "/etc/init.d/druid-${service_name}",
+      mode    => '0755',
+      content => $initscript,
+    }
   }
 
   service { "druid-${service_name}":
     ensure  => $ensure_node,
     enable  => true,
     require => File[
-      "/etc/init.d/druid-${service_name}",
+      "${service_name}_init",
       "${druid::config_dir}/${service_name}/runtime.properties"
     ],
   }

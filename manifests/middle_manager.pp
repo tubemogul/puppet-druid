@@ -24,10 +24,20 @@ class druid::middle_manager (
   validate_hash($config)
   validate_array($java_opts)
 
+  $init = $::service_provider ? {
+    'systemd' => 'druid/druid.service.erb',
+    default   => 'druid/druid.init.erb',
+  }
+  $env_file = $::service_provider ? {
+    'systemd' => 'druid/druid.env.erb',
+    default   => 'undef',
+  }
+
   druid::node { 'middleManager':
-    config     => template('druid/service.runtime.properties.erb'),
-    initscript => template('druid/druid.init.erb'),
-    java_opts  => $java_opts,
+    config           => template('druid/service.runtime.properties.erb'),
+    initscript       => template($init),
+    java_opts        => $java_opts,
+    environment_file => template($env_file),
   }
 
 }

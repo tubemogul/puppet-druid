@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - addec the management of the license for druid-pivot
+- systemd unit files
 
 ### Changed
 - Puppet archive version 1.3.0 is the last one compatible with puppet 3.x and
@@ -14,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   to reflect that.
 - Same for puppetlabs-apt dependency
 - Fix puppet-lint warnings
+- Manifests to deploy unit files
 
 
 ## [1.0.1] - 2017-01-31
