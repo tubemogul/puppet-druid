@@ -9,7 +9,7 @@
 # Description:       Druid pivot Node
 ### END INIT INFO
 
-PIVOT_HOME="/opt/imply/dist/pivot"
+PIVOT_HOME="<%= scope.lookupvar("druid::pivot::home_dir") %>"
 PIVOT_CONFIG="<%= scope.lookupvar("druid::pivot::config_dir") %>/config.yaml"
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
