@@ -11,6 +11,7 @@
 
 PIVOT_HOME="<%= scope.lookupvar("druid::pivot::home_dir") %>"
 PIVOT_CONFIG="<%= scope.lookupvar("druid::pivot::config_dir") %>/config.yaml"
+PIVOT_STATE="<%= scope.lookupvar("druid::pivot::state_file") %>"
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/bin/node
@@ -22,6 +23,7 @@ LOGFILE="<%= scope.lookupvar("druid::pivot::log_dir") %>/${NAME}.out"
 
 mkdir -p `dirname $PIDFILE`
 mkdir -p `dirname $LOGFILE`
+mkdir -p `dirname $PIVOT_STATE`
 
 . /lib/lsb/init-functions
 
