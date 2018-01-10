@@ -347,9 +347,21 @@ This class will deployed and configure pivot.
 
 **Parameters within druid::pivot`:**
 
+#### `home_dir`
+
+String setting the home directory for the imply-ui distribution
+
+Default: `/opt/imply/dist/imply-ui`
+
 ##### `config_dir`
 
-Hash defining the configuration of the Druid Node
+String setting the configuration directory of the imply-ui distribution 
+
+Default: `/opt/imply/conf/pivot`
+
+#### `state_store`
+
+Hash defining the configuration of the state storage options for the imply-ui
 
 Default: `{}`
 
