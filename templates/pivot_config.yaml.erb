@@ -37,5 +37,5 @@ sourceListRefreshOnLoad: <%= scope.lookupvar("druid::pivot::source_list_refresh_
 # connection: connection string or filename in the case of sqlite
 # tablePrefix: optional, prefix for state table name
 stateStore:
-    type: 'sqlite'
-    connection: '<%= scope.lookupvar("druid::pivot::state_file") %>'
+    type: 'mysql'
+    connection: '<%= scope.lookupvar("druid::pivot::state_connection_string") %>'
