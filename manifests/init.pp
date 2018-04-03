@@ -29,6 +29,7 @@ class druid (
   $java_classpath            = '/opt/imply/dist/druid/lib/*',
   $java_classpath_extensions = [],
   $log_dir                   = '/var/log/druid',
+  $log_size                  = '1 GB',
   $common_config             = {},
   $logstash_server           = undef,
   $logstash_port             = 4561,

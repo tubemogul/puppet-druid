@@ -11,7 +11,7 @@
         <Pattern>%d{ISO8601} [%p] [%thread] %logger{35} - %msg%n</Pattern>
       </PatternLayout>
       <Policies>
-        <SizeBasedTriggeringPolicy size="1 GB"/>
+        <SizeBasedTriggeringPolicy size="<%=@log_size %>"/>
       </Policies>
       <DefaultRolloverStrategy max="9"/>
     </RollingFile>
