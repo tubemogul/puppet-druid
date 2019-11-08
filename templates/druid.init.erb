@@ -13,6 +13,7 @@
 DRUID_HOME="<%= scope.lookupvar("::druid::dist_dir") %>"
 DRUID_CONFIG="<%= scope.lookupvar("::druid::config_dir") %>"
 DRUID_JAVA_OPTS="<%= @java_opts.join(' ') %>"
+DRUID_JAVA_OPTS_S3_EXTENSIONS="-Daws.region=us-east-1"
 
 <%- if scope.lookupvar("::druid::java_classpath_extensions").size > 0 -%>
 DRUID_EXT_REPO="<%= scope.lookupvar("::druid::extensions_dir") %>"
@@ -25,7 +26,7 @@ DRUID_JAVA_CLASSPATH="${DRUID_CONFIG}/<%= @service %>:${DRUID_CONFIG}/_common:<%
 JAVA_HOME=<%= scope.lookupvar("::druid::java_home") %>
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=$JAVA_HOME/bin/java
-DAEMON_OPTS="${DRUID_JAVA_OPTS} -classpath ${DRUID_JAVA_CLASSPATH} io.druid.cli.Main server <%= @service %>"
+DAEMON_OPTS="${DRUID_JAVA_OPTS} ${DRUID_JAVA_OPTS_S3_EXTENSIONS} -classpath ${DRUID_JAVA_CLASSPATH} org.apache.druid.cli.Main server <%= @service %>"
 NAME="druid-<%= @service %>"
 DESC="druid <%= @service %>"
 PIDFILE="/var/run/druid/${NAME}.pid"
