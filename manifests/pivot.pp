@@ -8,7 +8,7 @@
 #
 
 class druid::pivot (
-  $home_dir                     = '/opt/imply/dist/imply-ui',
+  $home_dir                     = '/opt/imply/dist/pivot',
   $config_dir                   = '/opt/imply/conf/pivot',
   $state_store                  = {},
   $port                         = 9095,

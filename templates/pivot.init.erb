@@ -14,7 +14,7 @@ PIVOT_CONFIG="<%= scope.lookupvar("druid::pivot::config_dir") %>/config.yaml"
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/bin/node
-DAEMON_OPTS="${PIVOT_HOME}/build/server/www.js -c ${PIVOT_CONFIG}"
+DAEMON_OPTS="${PIVOT_HOME}/bin/pivot -c ${PIVOT_CONFIG}"
 NAME="druid-pivot"
 DESC="druid pivot"
 PIDFILE="/var/run/druid/${NAME}.pid"
