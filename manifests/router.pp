@@ -1,6 +1,6 @@
-# == Class: druid::broker
+# == Class: druid::router
 #
-# Manage the Druid Broker service.
+# Manage the Druid Router service.
 #
 # === Parameters and Usage
 #

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-%w[broker coordinator historical middle_manager overlord].each do |node|
+%w[broker coordinator historical middle_manager overlord router].each do |node|
   describe 'druid::node', type: :define do
     let(:facts) do
       {
