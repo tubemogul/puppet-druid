@@ -21,6 +21,8 @@ LOGFILE="<%= scope.lookupvar("druid::pivot::log_dir") %>/${NAME}.out"
 
 mkdir -p `dirname $PIDFILE`
 mkdir -p `dirname $LOGFILE`
+cd ${PIVOT_HOME}/../..
+mkdir -p var/pivot
 
 . /lib/lsb/init-functions
 
