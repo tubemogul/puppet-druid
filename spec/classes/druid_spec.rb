@@ -25,7 +25,7 @@ describe 'druid' do
 
         it { is_expected.to contain_user('druid') }
         it { is_expected.to contain_group('druid') }
-        it { is_expected.to contain_archive('/usr/src/imply-3.1.5.1.tar.gz') }
+        it { is_expected.to contain_archive('/usr/src/imply-3.0.16.tar.gz') }
         it { is_expected.to contain_file('/opt/imply') }
         it do
           is_expected.to contain_file('common.runtime.properties').\
