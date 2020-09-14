@@ -25,7 +25,7 @@ class druid (
   $user                      = 'druid',
   $group                     = 'druid',
   $enable_service            = true,
-  $notify_service            = true,
+  $notify_service            = false,
   $java_classpath            = '/opt/imply/dist/druid/lib/*',
   $java_classpath_extensions = [],
   $log_dir                   = '/var/log/druid',
